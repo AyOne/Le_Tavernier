@@ -2,3 +2,5 @@ token
 venv
 .vscode
 __pycache__
+*.pyproj
+*.sln
