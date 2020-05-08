@@ -1,8 +1,6 @@
-import os
 import discord
 import random
 import re
-from functools import cmp_to_key
 
 
 
@@ -129,17 +127,9 @@ async def usage(message):
 		!roll! 2d10 + 1d5 + 5 + 3 + 1d10 + 2
 	```""")
 
-def role_sort(a, b):
-	if type(a[0]) == int and type(b[0]) == int:
-		return 0
-	elif type(a[0]) == int:
-		return -1
-	else:
-		return 1
-
 
 async def new_roll_parser(message, content):
-	match = re.match("^(?: ?\+ ?)?(?P<option>[aAdD]?)((?P<dice>[0-9]*)[dD](?P<size>[0-9]+))(?P<content>.*)$", content)
+	match = re.match("^(?: ?\\+ ?)?(?P<option>[aAdD]?)((?P<dice>[0-9]*)[dD](?P<size>[0-9]+))(?P<content>.*)$", content)
 	if match is not None:
 		dice = 1 if match.group("dice") == "" else int(match.group("dice"))
 		dsize = int(match.group("size"))
@@ -193,10 +183,10 @@ async def new_role_printer(message, first):
 
 
 
-
+"""
 class Tavernier(discord.Client):
 	async def on_message(self, message):
-		match = re.match("^\!(?P<content>.*)$", message.content)
+		match = re.match("^\\!(?P<content>.*)$", message.content)
 		if match != None:
 			await parser(message, match.group("content"))
 
@@ -209,3 +199,4 @@ class Tavernier(discord.Client):
 client = Tavernier()
 
 client.run("NjkzNDk4MTQ4MjMxOTcwODU2.Xn9_6g.b0men1SrgB4OyTUgwUPe6SD5eE8")
+"""
