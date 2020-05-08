@@ -1,4 +1,7 @@
 import sys
+import discord
+import re
+import sources
 
 DEBUG = False
 HELP = False
@@ -15,20 +18,19 @@ if DEBUG == True:
 	from importlib import reload
 
 
-import discord
-import re
-from sources import parser
+
 
 
 
 
 class Tavernier(discord.Client):
-	async def on_message(self, message):
+	async def on_message(self, message:discord.Message):
 		match = re.match("^\\!(?P<content>.*)$", message.content)
 		if match != None:
 			if DEBUG == True:
-				reload(parser)
-			await parser(message, match.group("content"))
+				reload(sources)
+				print("[DEBUG] - {0} typed this \"{1}\"".format(message.author.name, message.content))
+			await sources.mainParser(message, match.group("content"), debug=DEBUG)
 
 	async def on_ready(self):
 		print("[READY] - {} has connected to Discord".format(client.user))
