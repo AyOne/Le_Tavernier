@@ -1,7 +1,7 @@
 import sys
 import discord
 import re
-import sources
+import referral
 
 DEBUG = False
 HELP = False
@@ -28,9 +28,9 @@ class Tavernier(discord.Client):
 		match = re.match("^\\!(?P<content>.*)$", message.content)
 		if match != None:
 			if DEBUG == True:
-				reload(sources)
+				reload(referral)
 				print("[DEBUG] - {0} typed this \"{1}\"".format(message.author.name, message.content))
-			await sources.mainParser(message, match.group("content"), debug=DEBUG)
+			await referral.mainParser(message, match.group("content"), debug=DEBUG)
 
 	async def on_ready(self):
 		print("[READY] - {} has connected to Discord".format(client.user))
